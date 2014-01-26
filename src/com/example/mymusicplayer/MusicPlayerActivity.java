@@ -1,8 +1,7 @@
 package com.example.mymusicplayer;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 import android.media.MediaMetadataRetriever;
@@ -22,6 +21,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,20 +45,19 @@ public class MusicPlayerActivity extends Activity implements OnCompletionListene
  private  MediaPlayer mp;
  // Handler to update UI timer, progress bar etc,.
  private Handler mHandler = new Handler();;
- private SongsManager songManager;
  private Utilities utils;
  private int seekForwardTime = 5000; // 5000 milliseconds
  private int seekBackwardTime = 5000; // 5000 milliseconds
  private int currentSongIndex = 0;
  private boolean isShuffle = false;
  private boolean isRepeat = false;
- private ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
+ private  List<SongList> songsList;
+ private DatabaseHandler db ;
 
  
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_music_player);
 		 bPlay = (ImageButton) findViewById(R.id.bPlay);
@@ -76,18 +75,18 @@ public class MusicPlayerActivity extends Activity implements OnCompletionListene
 	        albumArt = (ImageView) findViewById(R.id.albumArt);
 	        //media player
 	        mp = new MediaPlayer();
-	        songManager = new SongsManager();
+	       //songManager = new SongsManager();
 	        utils = new Utilities();
+	        db = new DatabaseHandler(this); 
 	        //Listeners
 	        songProgressBar.setOnSeekBarChangeListener(this);//Important
 	        mp.setOnCompletionListener(this);//Important
 	        //getting all songs list
-	        songsList = songManager.getPlayList();
+	       
 	        //setting initial values for song title and album art
 	        songTitleLabel.setText("Song Title");
 	        albumArt.setImageResource(R.drawable.adele);
-	        
-	        
+	        albumArt.setScaleType(ScaleType.FIT_XY);
 	        /**
 	         * Button Click event for Play list click event
 	         * Launches list activity which displays list of songs
@@ -98,7 +97,10 @@ public class MusicPlayerActivity extends Activity implements OnCompletionListene
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					 Intent i = new Intent(getApplicationContext(), PlaylistActivity.class);
-		                startActivityForResult(i, 100);
+					//Intent i = new Intent(getApplicationContext(), SongsManager.class);
+					 Log.d("abc", ""+DatabaseHandler.DATABASE_VERSION); 
+					 //db.DATABASE_VERSION=3;
+					 startActivityForResult(i, 100);
 				}
 			});
 	        bPlay.setOnClickListener(new View.OnClickListener() {
@@ -110,14 +112,14 @@ public class MusicPlayerActivity extends Activity implements OnCompletionListene
 						if(mp!=null){
 							mp.pause();
 							// Changing button image to play button
-							bPlay.setImageResource(R.drawable.img_btn_play);
+							bPlay.setImageResource(R.drawable.img_bplay);
 						}
 					}else{
 						// Resume song
 						if(mp!=null){
 							mp.start();
 							// Changing button image to pause button
-							bPlay.setImageResource(R.drawable.img_btn_pause);
+							bPlay.setImageResource(R.drawable.img_bpause);
 						}
 					}
 					
@@ -222,7 +224,7 @@ public class MusicPlayerActivity extends Activity implements OnCompletionListene
 			//get current song position
 				int currentPosition = mp.getCurrentPosition();
 				//check if next song is present
-				if(currentSongIndex<(songsList.size()-1)){
+				if(currentSongIndex<(db.getSongsCount())-1){
 					playSong(currentSongIndex + 1);
 					currentSongIndex = currentSongIndex + 1;
 				}else {
@@ -244,8 +246,8 @@ public class MusicPlayerActivity extends Activity implements OnCompletionListene
                     currentSongIndex = currentSongIndex - 1;
                 }else{
                     // play last song
-                    playSong(songsList.size() - 1);
-                    currentSongIndex = songsList.size() - 1;
+                    playSong(db.getSongsCount() - 1);
+                    currentSongIndex = db.getSongsCount() - 1;
                 }
  
             }
@@ -277,23 +279,27 @@ public class MusicPlayerActivity extends Activity implements OnCompletionListene
 		// play song
 		try {
 			mp.reset();
-			mp.setDataSource(songsList.get(songIndex).get("songPath"));
+			//mp.setDataSource(songsList.get(songIndex).get("songPath"));
+			System.out.println(db.getsong(songIndex).getPath());
+			mp.setDataSource(db.getsong(songIndex).getPath());
 			mp.prepare();
 			mp.start();
 			
 			//Displaying Song Title
-			String songTitle = (songsList.get(songIndex).get("songTitle"));
+			String songTitle = (db.getsong(songIndex).getTitle());
 			MediaMetadataRetriever retriever = new MediaMetadataRetriever(); 
-			retriever.setDataSource(songsList.get(songIndex).get("songPath"));
+			retriever.setDataSource(db.getsong(songIndex).getPath());
 			byte [] data = retriever.getEmbeddedPicture();
 			Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
 			try {
 			songTitleLabel.setText(" " + songTitle);
 			if(data!=null){
 			albumArt.setImageBitmap(bitmap);
+			albumArt.setScaleType(ScaleType.FIT_XY);
 			}
 			else{
 			albumArt.setImageResource(R.drawable.adele);
+			albumArt.setScaleType(ScaleType.FIT_XY);
 			}
 			
 			}
@@ -303,7 +309,7 @@ public class MusicPlayerActivity extends Activity implements OnCompletionListene
 				e.printStackTrace();
 			}
 			// Changing Button image to pause
-			bPlay.setImageResource(R.drawable.img_btn_pause);
+			bPlay.setImageResource(R.drawable.img_bpause);
 			
 			//setProgress Bar Values
 			songProgressBar.setProgress(0);
@@ -392,11 +398,11 @@ public class MusicPlayerActivity extends Activity implements OnCompletionListene
 		else if (isShuffle){
 			//shuffle is on--play random song
 			Random rand = new Random();
-			currentSongIndex = rand.nextInt((songsList.size()-1)- 0 + 1)+0;
+			currentSongIndex = rand.nextInt((db.getSongsCount()-1)- 0 + 1)+0;
 			playSong(currentSongIndex);
 		}else {
 			//neither repeat nor shuffle is on
-			if(currentSongIndex < (songsList.size()-1)){
+			if(currentSongIndex < (db.getSongsCount()-1)){
 				playSong(currentSongIndex+1);
 				currentSongIndex = currentSongIndex + 1;
 			}else

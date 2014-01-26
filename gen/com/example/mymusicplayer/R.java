@@ -28,37 +28,45 @@ public final class R {
         public static final int gradient_bg=0x7f020004;
         public static final int gradient_bg_hover=0x7f020005;
         public static final int ic_launcher=0x7f020006;
-        public static final int img_btn_backward=0x7f020007;
-        public static final int img_btn_backward_pressed=0x7f020008;
-        public static final int img_btn_forward=0x7f020009;
-        public static final int img_btn_forward_pressed=0x7f02000a;
-        public static final int img_btn_next=0x7f02000b;
-        public static final int img_btn_next_pressed=0x7f02000c;
-        public static final int img_btn_pause=0x7f02000d;
-        public static final int img_btn_pause_pressed=0x7f02000e;
-        public static final int img_btn_play=0x7f02000f;
-        public static final int img_btn_play_pressed=0x7f020010;
-        public static final int img_btn_playlist=0x7f020011;
-        public static final int img_btn_playlist_pressed=0x7f020012;
-        public static final int img_btn_previous=0x7f020013;
-        public static final int img_btn_previous_pressed=0x7f020014;
-        public static final int img_btn_repeat=0x7f020015;
-        public static final int img_btn_repeat_pressed=0x7f020016;
-        public static final int img_btn_shuffle=0x7f020017;
-        public static final int img_btn_shuffle_pressed=0x7f020018;
-        public static final int img_seekbar_bg=0x7f020019;
-        public static final int img_seekbar_progress_blue=0x7f02001a;
-        public static final int list_selector=0x7f02001b;
-        public static final int rounded_corner=0x7f02001c;
-        public static final int seek_handler=0x7f02001d;
-        public static final int seekbar_progress=0x7f02001e;
-        public static final int seekbar_progress_bg=0x7f02001f;
-        public static final int track_info_bg=0x7f020020;
+        public static final int img_bbackward=0x7f020007;
+        public static final int img_bforward=0x7f020008;
+        public static final int img_bnext=0x7f020009;
+        public static final int img_bpause=0x7f02000a;
+        public static final int img_bplay=0x7f02000b;
+        public static final int img_bplaylist=0x7f02000c;
+        public static final int img_bprevious=0x7f02000d;
+        public static final int img_btn_backward=0x7f02000e;
+        public static final int img_btn_backward_pressed=0x7f02000f;
+        public static final int img_btn_forward=0x7f020010;
+        public static final int img_btn_forward_pressed=0x7f020011;
+        public static final int img_btn_next=0x7f020012;
+        public static final int img_btn_next_pressed=0x7f020013;
+        public static final int img_btn_pause=0x7f020014;
+        public static final int img_btn_pause_pressed=0x7f020015;
+        public static final int img_btn_play=0x7f020016;
+        public static final int img_btn_play_pressed=0x7f020017;
+        public static final int img_btn_playlist=0x7f020018;
+        public static final int img_btn_playlist_pressed=0x7f020019;
+        public static final int img_btn_previous=0x7f02001a;
+        public static final int img_btn_previous_pressed=0x7f02001b;
+        public static final int img_btn_repeat=0x7f02001c;
+        public static final int img_btn_repeat_pressed=0x7f02001d;
+        public static final int img_btn_shuffle=0x7f02001e;
+        public static final int img_btn_shuffle_pressed=0x7f02001f;
+        public static final int img_seekbar_bg=0x7f020020;
+        public static final int img_seekbar_progress_blue=0x7f020021;
+        public static final int list_selector=0x7f020022;
+        public static final int rounded_corner=0x7f020023;
+        public static final int seek_handler=0x7f020024;
+        public static final int seekbar_progress=0x7f020025;
+        public static final int seekbar_progress_bg=0x7f020026;
+        public static final int track_info_bg=0x7f020027;
     }
     public static final class id {
         public static final int SongProgress=0x7f08000b;
         public static final int SongThumb=0x7f080003;
         public static final int SongTitle=0x7f080001;
+        public static final int action_refresh=0x7f080013;
         public static final int action_settings=0x7f080012;
         public static final int albumArt=0x7f080004;
         public static final int bBackward=0x7f080007;
@@ -81,6 +89,7 @@ public final class R {
         public static final int main=0x7f030001;
         public static final int playlist=0x7f030002;
         public static final int playlist_item=0x7f030003;
+        public static final int songsmanager=0x7f030004;
     }
     public static final class menu {
         public static final int music_player=0x7f070000;
@@ -88,9 +97,11 @@ public final class R {
     }
     public static final class string {
         public static final int SongTitle=0x7f050002;
+        public static final int action_refresh=0x7f050006;
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
         public static final int hello_world=0x7f050004;
+        public static final int scan_message=0x7f050007;
         public static final int title_activity_music_player=0x7f050005;
         public static final int title_activity_playlist=0x7f050003;
     }

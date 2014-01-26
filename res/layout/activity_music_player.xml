@@ -37,7 +37,7 @@
           android:id="@+id/bPlaylist"
           android:layout_width="wrap_content"
           android:layout_height="fill_parent"
-          android:src="@drawable/img_btn_playlist"
+          android:src="@drawable/img_bplaylist"
           android:background="@null"/>
     </LinearLayout>
     <!-- Song Thumbnail -->
@@ -50,8 +50,8 @@
         android:gravity="center"
         android:layout_below="@id/player_header_bg">
       <ImageView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
           android:id="@+id/albumArt"/>"
     </LinearLayout>
     <!-- Player Footer -->
@@ -77,7 +77,7 @@
             <!-- Previous Button -->
             <ImageButton
                 android:id="@+id/bPrevious"
-                android:src="@drawable/img_btn_previous"
+                android:src="@drawable/img_bprevious"
                 android:layout_width="wrap_content" 
                 android:layout_height="wrap_content"
                 android:background="@null"/>
@@ -86,12 +86,12 @@
                 android:id="@+id/bBackward"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/img_btn_backward"
+                android:src="@drawable/img_bbackward"
                 android:background="@null"/>
             <!-- Play Button -->
               <ImageButton 
                 android:id="@+id/bPlay"
-                android:src="@drawable/img_btn_play"
+                android:src="@drawable/img_bplay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"/>
@@ -101,14 +101,14 @@
                 android:id="@+id/bForward"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/img_btn_forward"
+                android:src="@drawable/img_bforward"
                 android:background="@null"/>
             <!-- Forward Button -->
             <ImageButton 
                 android:id="@+id/bNext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/img_btn_next"
+                android:src="@drawable/img_bnext"
                 android:background="@null"/>"
            </LinearLayout>
      </LinearLayout>
@@ -117,8 +117,8 @@
          android:id="@+id/SongProgress"
          android:layout_width="fill_parent"
          android:layout_height="wrap_content"
-         android:layout_marginRight="20dp"
-         android:layout_marginLeft='20dp'
+         android:layout_marginRight="5dp"
+         android:layout_marginLeft='5dp'
          android:layout_marginBottom="20dp"
          android:layout_above="@id/player_footer_bg"
          android:thumb="@drawable/seek_handler"
@@ -141,6 +141,7 @@
              android:layout_weight="1"
              android:gravity="left"
              android:textColor="#eeeeee"
+             android:textSize="18sp"
              android:textStyle="bold"/>
          <!-- Total Duration Label -->
          <TextView
@@ -150,6 +151,7 @@
              android:layout_weight="1"
              android:gravity="right"
              android:textColor="#eeeeee"
+             android:textSize="18sp"
              android:textStyle="bold"/>    
      </LinearLayout>
      <!-- Repeat/Shuffle Button -->
